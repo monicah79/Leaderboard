@@ -1,3 +1,3 @@
-export function hello() {
-    console.log("Hello, world!");
-  }
+export default function hello() { // eslint disable line
+  return ('Hello, world!');
+}
