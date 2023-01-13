@@ -9,8 +9,5 @@ const registerNewGame = (gameName) => {
       name: gameName,
     }),
   });
-  // .then((response) => {
-
-  // });
 };
 export default registerNewGame;
