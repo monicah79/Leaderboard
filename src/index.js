@@ -1,4 +1,5 @@
 import './style.css';
+import li from './modules/list.js'
 const url = "https://us-central1-js-capstone-backend.cloudfunctions.net/api/games/OibSRTp1TXHUwSe4RmPD/scores/"
 
 // const getId = () => {
@@ -20,7 +21,7 @@ const url = "https://us-central1-js-capstone-backend.cloudfunctions.net/api/game
 
 const form = document.querySelector(".data-form")
 
-form.addEventListener("click", ((e)=>{
+form.addEventListener("click", async (e)=> {
     e.preventDefault()
     const name = document.querySelector(".name-data")
     const scores = document.querySelector(".score-data")
@@ -30,9 +31,9 @@ form.addEventListener("click", ((e)=>{
             scores : scores.value
         }
         // console.log(obj)
-        postData(obj.name, obj.scores)
+       await postData(obj.name, obj.scores)
     }
-}))
+})
 
 // const postData = async (obj)=>{
 //     fetch (url,{
@@ -46,37 +47,21 @@ form.addEventListener("click", ((e)=>{
 // }
 // .then(response) => response.json())
 
-const postData = async (obj)=>
+const postData = async (name, scores)=>
 fetch (url,{
     method: "POST",
     headers:{
         "Content-type": "application/json; charset=UTF-8",
     },
-    body : JSON.stringify(obj)
+    body : JSON.stringify({
+        name : `${name}`,
+        scores : `${scores}`
+    })
 })
 .then((response) => response.json())
 .then((data) => data.result)
+console.log(data)
 
-
-const getData = async () => {
-    const response = await fetch (url)
-    const data = await response.json()
-    console.log(data)
-    return data.result
-}
-
- const li = async()=> {
-    const ul = document.querySelector(".ul-li")
-    ul.innerHTML = ""
-    const data = await getData()
-    data.sort((a, b)=> b.scores - a.scores)
-
-    data.forEach((list)=> {
-        ul.innerHTML += `<li>${list.name} : ${list.scores}  </li>`
-    })
-     console.log(data)
- }
- 
 const refreshBtn = document.querySelector(".btn-refresh")
 refreshBtn.addEventListener ("click", li)
 li()
