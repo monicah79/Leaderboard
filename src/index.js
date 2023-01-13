@@ -34,18 +34,29 @@ form.addEventListener("click", ((e)=>{
     }
 }))
 
-const postData = async (obj)=>{
-  const response = await fetch (url,{
+// const postData = async (obj)=>{
+//     fetch (url,{
+//     method: "POST",
+//     headers:{
+//         "Content-type": "application/json; charset=UTF-8",
+//     },
+//     body : JSON.stringify(obj)
+//   })
+
+// }
+// .then(response) => response.json())
+
+const postData = async (obj)=>
+fetch (url,{
     method: "POST",
     headers:{
         "Content-type": "application/json; charset=UTF-8",
     },
     body : JSON.stringify(obj)
-  })
-  const data = await response.json()
-//   console.log (data)
-  return data
-}
+})
+.then((response) => response.json())
+.then((data) => data.result)
+
 
 const getData = async () => {
     const response = await fetch (url)
@@ -54,17 +65,18 @@ const getData = async () => {
     return data.result
 }
 
- const li = ()=> {
+ const li = async()=> {
     const ul = document.querySelector(".ul-li")
     ul.innerHTML = ""
-    const data = getData()
+    const data = await getData()
     data.sort((a, b)=> b.scores - a.scores)
 
     data.forEach((list)=> {
         ul.innerHTML += `<li>${list.name} : ${list.scores}  </li>`
     })
-    // console.log(data)
+     console.log(data)
  }
  
 const refreshBtn = document.querySelector(".btn-refresh")
 refreshBtn.addEventListener ("click", li)
+li()
