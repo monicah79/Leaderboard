@@ -16,9 +16,10 @@ const postData = (name, scores) => {
       user: name,
       score: scores,
     }),
-  });
-
-  refreshBtn.click();
+  })
+    .then(() => {
+      refreshBtn.click();
+    });
 };
 
 form.addEventListener('submit', async (e) => {
