@@ -9,8 +9,8 @@ const postData = async (name, scores) => {
       user: name,
       score: scores,
     }),
-  })
-    const data = await response.json()
-    return data.result
+  });
+  const data = await response.json();
+  return data.result;
 };
 export default postData;
