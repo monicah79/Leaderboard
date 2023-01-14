@@ -1,26 +1,12 @@
 import './style.css';
 import registerNewGame from './modules/game.js';
+import postData from './modules/post.js';
 
 registerNewGame('monicahs');
-const url = 'https://us-central1-js-capstone-backend.cloudfunctions.net/api/games/c0Kl9crOIDTmH3nrtoHL/scores/';
+const url = 'https://us-central1-js-capstone-backend.cloudfunctions.net/api/games/viE6AaehEYIIOYRfWDeM/scores/';
 
 const form = document.querySelector('.data-form');
 const refreshBtn = document.querySelector('.btn-refresh');
-const postData = (name, scores) => {
-  fetch(url, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      user: name,
-      score: scores,
-    }),
-  })
-    .then(() => {
-      refreshBtn.click();
-    });
-};
 
 form.addEventListener('submit', async (e) => {
   e.preventDefault();
@@ -52,7 +38,6 @@ refreshBtn.addEventListener('click', async (e) => {
   const ul = document.querySelector('.ul-li');
   ul.innerHTML = '';
 
-  // for (const i in result) {
   for (let i = 0; i < result.length; i += 1) {
     ul.innerHTML += `<li>${result[i].user} : ${result[i].score}  </li>`;
   }

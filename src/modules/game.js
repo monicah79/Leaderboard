@@ -8,6 +8,8 @@ const registerNewGame = (gameName) => {
     body: JSON.stringify({
       name: gameName,
     }),
-  });
+  })
+  .then((response)=> response.json())
+  .then((data)=> console.log(data))
 };
 export default registerNewGame;
